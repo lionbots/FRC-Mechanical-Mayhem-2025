@@ -6,26 +6,21 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 
 public class DrivebaseSubsystem extends SubsystemBase {
-  private final Talon motorController1 = new Talon(0);
-  private final Talon motorController2 = new Talon(0);
+  private final PWMTalonSRX rightWheel = new PWMTalonSRX(DriveConstants.rightWheel);
+  private final PWMTalonSRX leftWheel = new PWMTalonSRX(DriveConstants.leftWheel);
+  private final DifferentialDrive differentialDrive = new DifferentialDrive(leftWheel, rightWheel);          
   /** Creates a new DrivebaseSubsystem. */
-  public DrivebaseSubsystem() {}
+    public DrivebaseSubsystem(){
+    rightWheel.setInverted(true);
+  }
 
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
+  public void drive(double xSpeed, double zRotation){
+    differentialDrive.arcadeDrive(xSpeed, zRotation);
   }
 
   /**
