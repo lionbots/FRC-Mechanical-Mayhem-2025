@@ -6,8 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 public class DrivebaseSubsystem extends SubsystemBase {
+  private final Talon motorController1 = new Talon(0);
+  private final Talon motorController2 = new Talon(0);
   /** Creates a new DrivebaseSubsystem. */
   public DrivebaseSubsystem() {}
 
