@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
-import com.revrobotics.spark.config.*;
 
 public class DrivebaseSubsystem extends SubsystemBase {
   private final PWMTalonSRX rightWheel = new PWMTalonSRX(DriveConstants.rightWheel);
@@ -17,12 +16,18 @@ public class DrivebaseSubsystem extends SubsystemBase {
   private final DifferentialDrive differentialDrive = new DifferentialDrive(leftWheel, rightWheel);          
   /** Creates a new DrivebaseSubsystem. */
     public DrivebaseSubsystem(){
+      setMotorInverted();
+  }
+
+  public void setMotorInverted() {
     rightWheel.setInverted(true);
   }
 
-  public void drive(double xSpeed, double zRotation){
-    differentialDrive.arcadeDrive(xSpeed, zRotation);
+  //Create a method for driving
+  public void drive(double speed, double rotation){
+    differentialDrive.arcadeDrive(speed, rotation);
   }
+
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).

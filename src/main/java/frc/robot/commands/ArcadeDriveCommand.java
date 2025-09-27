@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class FieldCentricDriveCommand extends Command {
+public class ArcadeDriveCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
