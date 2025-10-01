@@ -24,10 +24,10 @@ public class DrivebaseSubsystem extends SubsystemBase {
   }
 
   //Create a method for driving
-  public void drive(double speed, double rotation){
-    differentialDrive.arcadeDrive(speed, rotation);
+  public void setMotorSpeed(double leftSpeed, double rightSpeed){
+    rightWheel.set(rightSpeed);
+    leftWheel.set(leftSpeed);
   }
-
 
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
