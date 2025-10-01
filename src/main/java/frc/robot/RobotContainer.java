@@ -20,14 +20,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController driverController =
+      new CommandXboxController(OperatorConstants.driverController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    driveBase.setDefaultCommand(new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
     configureBindings();
   }
 
