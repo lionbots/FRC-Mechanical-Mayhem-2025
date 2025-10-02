@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DrivebaseSubsystem;
@@ -52,7 +53,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return null;}
+    return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
+  }
 }
