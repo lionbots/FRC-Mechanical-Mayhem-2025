@@ -18,7 +18,7 @@ public class IntakeCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem intakem, Supplier<Double> intakeSpeed;) {
+  public IntakeCommand(IntakeSubsystem intake, Supplier<Double> intakeSpeed) {
     this.intake = intake;
     this.intakeSpeed = intakeSpeed;
   }
