@@ -12,13 +12,13 @@ import frc.robot.subsystems.DrivebaseSubsystem;
 public class ArcadeDriveCommand extends Command {
   // Sets up variables from imported classes.
   public final DrivebaseSubsystem driveBase;
-  private final Supplier<Double> leftSpeed;
+  private final Supplier<Double> angle;
   private final Supplier<Double> rightSpeed;
 
   // Creates a new ArcadeDriveCommand constructor and sets up variables.
-  public ArcadeDriveCommand(DrivebaseSubsystem driveBase, Supplier<Double> leftSpeed, Supplier<Double> rightSpeed) {
+  public ArcadeDriveCommand(DrivebaseSubsystem driveBase, Supplier<Double> angle, Supplier<Double> rightSpeed) {
     this.driveBase = driveBase;
-    this.leftSpeed = leftSpeed;
+    this.angle = angle;
     this.rightSpeed = rightSpeed;
   }
 
@@ -29,9 +29,7 @@ public class ArcadeDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Sets the motor speed
-    driveBase.setMotorSpeed(leftSpeed.get() * 0.2, rightSpeed.get() * 0.2);
-
+    driveBase.arcadeDrive(angle.get(), rightSpeed.get());
   }
 
   // Called once the command ends or is interrupted.

@@ -4,30 +4,32 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.subsystems.DrivebaseSubsystem;
 
 public class DrivebaseSubsystem extends SubsystemBase {
-  private final PWMTalonSRX rightWheel = new PWMTalonSRX(DriveConstants.rightWheel);
-  private final PWMTalonSRX leftWheel = new PWMTalonSRX(DriveConstants.leftWheel);
-  private final DifferentialDrive differentialDrive = new DifferentialDrive(leftWheel, rightWheel);          
+  private final PWMSparkMax rightfrontWheel = new PWMSparkMax(DriveConstants.rightfrontWheel);
+  private final PWMSparkMax leftfrontWheel = new PWMSparkMax(DriveConstants.leftfrontWheel);
+  private final PWMSparkMax rightbackWheel = new PWMSparkMax(DriveConstants.rightbackWheel);
+  private final PWMSparkMax leftbackWheel = new PWMSparkMax(DriveConstants.leftfrontWheel);
+  private final DifferentialDrive differentialDrive = new DifferentialDrive(leftfrontWheel, rightfrontWheel);
   /** Creates a new DrivebaseSubsystem. */
     public DrivebaseSubsystem(){
-      setMotorInverted();
   }
 
-  public void setMotorInverted() {
-    rightWheel.setInverted(true);
+  public void arcadeDrive(double angle, double speed) {
+    this.differentialDrive.arcadeDrive(speed, angle);
   }
 
   //Create a method for driving
   public void setMotorSpeed(double leftSpeed, double rightSpeed){
-    rightWheel.set(rightSpeed);
-    leftWheel.set(leftSpeed);
+    rightfrontWheel.set(rightSpeed);
+    rightbackWheel.set(rightSpeed);
+    leftbackWheel.set(leftSpeed);
+    leftfrontWheel.set(leftSpeed);
   }
 
   /**

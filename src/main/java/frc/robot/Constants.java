@@ -17,8 +17,10 @@ public final class Constants {
     public static final int driverController = 0;
   }
   public static class DriveConstants {
-    public static final int leftWheel = 0;
-    public static final int rightWheel = 1;
+    public static final int leftfrontWheel = 0;
+    public static final int leftbackWheel = 1;
+    public static final int rightfrontWheel = 2;
+    public static final int rightbackWheel = 3;
   }
 
 }
