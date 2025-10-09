@@ -4,17 +4,18 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.subsystems.DrivebaseSubsystem;
 
 public class DrivebaseSubsystem extends SubsystemBase {
-  private final PWMSparkMax rightfrontWheel = new PWMSparkMax(DriveConstants.rightfrontWheel);
-  private final PWMSparkMax leftfrontWheel = new PWMSparkMax(DriveConstants.leftfrontWheel);
-  private final PWMSparkMax rightbackWheel = new PWMSparkMax(DriveConstants.rightbackWheel);
-  private final PWMSparkMax leftbackWheel = new PWMSparkMax(DriveConstants.leftfrontWheel);
+  private final SparkMax rightfrontWheel = new SparkMax(DriveConstants.rightfrontWheel, MotorType.kBrushless);
+  private final SparkMax leftfrontWheel = new SparkMax(DriveConstants.leftfrontWheel, MotorType.kBrushless);
   private final DifferentialDrive differentialDrive = new DifferentialDrive(leftfrontWheel, rightfrontWheel);
   /** Creates a new DrivebaseSubsystem. */
     public DrivebaseSubsystem(){
@@ -27,8 +28,6 @@ public class DrivebaseSubsystem extends SubsystemBase {
   //Create a method for driving
   public void setMotorSpeed(double leftSpeed, double rightSpeed){
     rightfrontWheel.set(rightSpeed);
-    rightbackWheel.set(rightSpeed);
-    leftbackWheel.set(leftSpeed);
     leftfrontWheel.set(leftSpeed);
   }
 

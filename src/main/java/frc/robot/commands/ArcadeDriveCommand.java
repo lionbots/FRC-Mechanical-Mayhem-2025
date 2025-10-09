@@ -20,6 +20,7 @@ public class ArcadeDriveCommand extends Command {
     this.driveBase = driveBase;
     this.angle = angle;
     this.rightSpeed = rightSpeed;
+    this.addRequirements(this.driveBase);
   }
 
   // Called when the command is initially scheduled.
