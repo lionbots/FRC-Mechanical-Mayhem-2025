@@ -4,9 +4,9 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivebaseSubsystem;
+import java.util.function.Supplier;
 
 /** An example command that uses an example subsystem. */
 public class ArcadeDriveCommand extends Command {
@@ -16,7 +16,8 @@ public class ArcadeDriveCommand extends Command {
   private final Supplier<Double> rightSpeed;
 
   // Creates a new ArcadeDriveCommand constructor and sets up variables.
-  public ArcadeDriveCommand(DrivebaseSubsystem driveBase, Supplier<Double> angle, Supplier<Double> rightSpeed) {
+  public ArcadeDriveCommand(
+      DrivebaseSubsystem driveBase, Supplier<Double> angle, Supplier<Double> rightSpeed) {
     this.driveBase = driveBase;
     this.angle = angle;
     this.rightSpeed = rightSpeed;

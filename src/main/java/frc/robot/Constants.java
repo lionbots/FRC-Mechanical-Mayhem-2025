@@ -16,9 +16,9 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int driverController = 0;
   }
+
   public static class DriveConstants {
     public static final int leftfrontWheel = 10;
     public static final int rightfrontWheel = 2;
   }
-
 }
