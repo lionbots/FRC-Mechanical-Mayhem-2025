@@ -20,7 +20,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
   /** Creates a new DrivebaseSubsystem. */
   public DrivebaseSubsystem() {}
 
-  public void arcadeDrive(double angle, double speed) {
+  public void arcadeDrive(double speed, double angle) {
     this.differentialDrive.arcadeDrive(speed, angle);
   }
 

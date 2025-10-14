@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivebaseSubsystem;
 import java.util.function.Supplier;
 
-/** An example command that uses an example subsystem. */
+// Sets up ArcadeDriveCommand class to control the robot's movement, used in RobotContainer.
 public class ArcadeDriveCommand extends Command {
   // Sets up variables from imported classes.
   public final DrivebaseSubsystem driveBase;
@@ -20,7 +20,9 @@ public class ArcadeDriveCommand extends Command {
       DrivebaseSubsystem driveBase, Supplier<Double> angle, Supplier<Double> rightSpeed) {
     this.driveBase = driveBase;
     this.angle = angle;
+    // Declared rightSpeed as leftSpeed is given by a negative value of rightSpeed.
     this.rightSpeed = rightSpeed;
+  // Adds the driveBase subsystem as a requirement for the ArcadeDriveCommand, ensuring no other commands can use it simultaneously.  
     this.addRequirements(this.driveBase);
   }
 

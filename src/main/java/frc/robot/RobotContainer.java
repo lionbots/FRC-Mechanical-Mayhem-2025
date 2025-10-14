@@ -21,17 +21,14 @@ import frc.robot.subsystems.DrivebaseSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  // If using a different controller use CommandPS4Controller of CommandJoystick
   private final CommandXboxController driverController =
       new CommandXboxController(OperatorConstants.driverController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
     driveBase.setDefaultCommand(
-        new ArcadeDriveCommand(
-            driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
-    configureBindings();
+        new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
   }
 
   /**
@@ -53,6 +50,7 @@ public class RobotContainer {
 
   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
+    // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
     return new ParallelCommandGroup(
         new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
   }
