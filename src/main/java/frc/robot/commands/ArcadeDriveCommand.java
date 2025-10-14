@@ -22,7 +22,8 @@ public class ArcadeDriveCommand extends Command {
     this.angle = angle;
     // Declared rightSpeed as leftSpeed is given by a negative value of rightSpeed.
     this.rightSpeed = rightSpeed;
-  // Adds the driveBase subsystem as a requirement for the ArcadeDriveCommand, ensuring no other commands can use it simultaneously.  
+    // Adds the driveBase subsystem as a requirement for the ArcadeDriveCommand, ensuring no other
+    // commands can use it simultaneously.
     this.addRequirements(this.driveBase);
   }
 

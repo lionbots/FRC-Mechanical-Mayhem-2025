@@ -23,12 +23,13 @@ public class RobotContainer {
   private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
   // If using a different controller use CommandPS4Controller of CommandJoystick
   private final CommandXboxController driverController =
-      new CommandXboxController(OperatorConstants.driverController);
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveBase.setDefaultCommand(
-        new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
+        new ArcadeDriveCommand(
+            driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
   }
 
   /**
