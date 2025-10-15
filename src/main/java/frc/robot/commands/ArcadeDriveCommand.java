@@ -34,7 +34,7 @@ public class ArcadeDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveBase.arcadeDrive(angle.get(), rightSpeed.get());
+    driveBase.arcadeDrive(rightSpeed.get(), angle.get());
   }
 
   // Called once the command ends or is interrupted.
