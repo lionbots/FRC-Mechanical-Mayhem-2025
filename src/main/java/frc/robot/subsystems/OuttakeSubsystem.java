@@ -6,11 +6,31 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OuttakeConstants;
+
+//Sparmax library for the motor
+import com.revrobotics.spark.*;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class OuttakeSubsystem extends SubsystemBase {
+  private final SparkMax outtakeMotor = new SparkMax(OuttakeConstants.outtakeMotorPort, MotorType.kBrushless);
   /** Creates a new ExampleSubsystem. */
-  public OuttakeSubsystem() {}
+  public OuttakeSubsystem() {
+    // calls brake mode method
+    setMotorIdleMode();
+  }
 
+  /** Method sets outtake motor brake*/
+  public void setMotorIdleMode(){
+    SparkMaxConfig idleMode = new SparkMaxConfig();
+    idleMode.idleMode(IdleMode.kBrake);
+
+    outtakeMotor.configure(idleMode, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
