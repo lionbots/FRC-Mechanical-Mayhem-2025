@@ -19,6 +19,6 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int intakeMotorPort = 1;
+    public static final int intakeMotorPort = 7;
   }
 }
