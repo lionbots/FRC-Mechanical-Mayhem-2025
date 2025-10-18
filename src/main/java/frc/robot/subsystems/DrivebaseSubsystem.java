@@ -4,17 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 public class DrivebaseSubsystem extends SubsystemBase {
-  private final SparkMax rightfrontWheel =
-      new SparkMax(DriveConstants.rightfrontWheel, MotorType.kBrushless);
-  private final SparkMax leftfrontWheel =
-      new SparkMax(DriveConstants.leftfrontWheel, MotorType.kBrushless);
+  private final PWMTalonSRX rightfrontWheel =
+      new PWMTalonSRX(DriveConstants.rightfrontWheel);
+  private final PWMTalonSRX leftfrontWheel =
+      new PWMTalonSRX(DriveConstants.leftfrontWheel);
   private final DifferentialDrive differentialDrive =
       new DifferentialDrive(leftfrontWheel, rightfrontWheel);
   /** Creates a new DrivebaseSubsystem. */
