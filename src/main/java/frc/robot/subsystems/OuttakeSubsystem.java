@@ -31,6 +31,10 @@ public class OuttakeSubsystem extends SubsystemBase {
     outtakeMotor.configure(idleMode, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
   
+  public void setOuttakeSpeed(double outtakeSpeed) {
+    outtakeMotor.set(outtakeSpeed);
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
