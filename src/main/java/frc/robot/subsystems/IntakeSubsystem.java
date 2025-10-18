@@ -28,7 +28,7 @@ public class IntakeSubsystem extends SubsystemBase {
     idleMode.idleMode(IdleMode.kBrake);
 
 
-    intakeMotor.configure(idleMode, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters)
+    intakeMotor.configure(idleMode, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void setIntakeSpeed(double intakeSpeed) {
