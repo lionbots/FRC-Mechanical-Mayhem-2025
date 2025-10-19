@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.subsystems.OuttakeSubsystem;
@@ -37,9 +36,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveBase.setDefaultCommand(
-      new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX())
-    );
+    driveBase.setDefaultCommand(new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
     configureBindings();
   }
   
@@ -53,6 +50,5 @@ public class RobotContainer {
     //TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
     return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
   }
-
 
 }
