@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDriveCommand;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.DrivebaseSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,7 +19,6 @@ import frc.robot.subsystems.IntakeSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem intake = new IntakeSubsystem();
   private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -40,8 +37,6 @@ public class RobotContainer {
   }
   
   private void configureBindings() {
-    operatorController.leftTrigger(0.1).whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
-    
   }
 
   // Sets up the autonomous mode movements for 3 seconds.
