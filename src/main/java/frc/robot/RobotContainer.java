@@ -22,23 +22,21 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController = new CommandXboxController(0);
-  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveBase.setDefaultCommand(
-      new ArcadeDriveCommand(driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX())
-    );
+        new ArcadeDriveCommand(
+            driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
     configureBindings();
   }
-  
-  private void configureBindings() {
-  }
+
+  private void configureBindings() {}
 
   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
-    //TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
-    return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
+    // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
+    return new ParallelCommandGroup(
+        new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
   }
-
 }
