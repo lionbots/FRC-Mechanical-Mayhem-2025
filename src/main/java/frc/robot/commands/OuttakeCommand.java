@@ -1,15 +1,14 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.OuttakeSubsystem;
+import java.util.function.Supplier;
 
 /** An example command that uses an example subsystem. */
 public class OuttakeCommand extends Command {
-   private final OuttakeSubsystem outtake;
+  private final OuttakeSubsystem outtake;
   private final Supplier<Double> outtakeSpeed;
- 
+
   public OuttakeCommand(OuttakeSubsystem outtake, Supplier<Double> outtakeSpeed) {
     this.outtake = outtake;
     this.outtakeSpeed = outtakeSpeed;
@@ -37,4 +36,3 @@ public class OuttakeCommand extends Command {
     return false;
   }
 }
-
