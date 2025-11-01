@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.subsystems.OuttakeSubsystem;
 
@@ -22,7 +19,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final OuttakeSubsystem outtake = new OuttakeSubsystem();
 
-  private final CommandXboxController operatorController = 
+  private final CommandXboxController operatorController =
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -31,7 +28,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    operatorController.rightTrigger(0.1).whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
+    operatorController
+        .rightTrigger(0.1)
+        .whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
   }
-
 }

@@ -17,7 +17,8 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 5;
   }
+
   public static class OuttakeConstants {
-    public static final int outtakeMotorPort = 8; 
+    public static final int outtakeMotorPort = 8;
   }
 }
