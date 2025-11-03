@@ -20,7 +20,8 @@ import frc.robot.subsystems.DrivebaseSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
-  // If using a different controller use CommandPS4Controller of CommandJoystick
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
