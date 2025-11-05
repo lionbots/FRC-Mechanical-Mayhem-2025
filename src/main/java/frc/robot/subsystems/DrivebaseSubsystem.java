@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -17,8 +18,17 @@ public class DrivebaseSubsystem extends SubsystemBase {
       new SparkMax(DriveConstants.leftfrontWheel, MotorType.kBrushless);
   private final DifferentialDrive differentialDrive =
       new DifferentialDrive(leftfrontWheel, rightfrontWheel);
+
+  // Creates a new PID controller
+  private final PIDController PID =
+      new PIDController(
+          DriveConstants.PIDConstants.kP,
+          DriveConstants.PIDConstants.kI,
+          DriveConstants.PIDConstants.kD);
   /** Creates a new DrivebaseSubsystem. */
-  public DrivebaseSubsystem() {}
+  public DrivebaseSubsystem() {
+    configurePID();
+  }
 
   public void arcadeDrive(double speed, double angle) {
     this.differentialDrive.arcadeDrive(speed, angle);
@@ -28,6 +38,11 @@ public class DrivebaseSubsystem extends SubsystemBase {
   public void setMotorSpeed(double leftSpeed, double rightSpeed) {
     rightfrontWheel.set(rightSpeed);
     leftfrontWheel.set(leftSpeed);
+  }
+
+  private void configurePID() {
+    PID.enableContinuousInput(-180, 180);
+    PID.setTolerance(DriveConstants.PIDConstants.tolerance);
   }
 
   /**
