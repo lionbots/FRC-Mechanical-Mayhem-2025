@@ -4,34 +4,34 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
 import com.revrobotics.spark.*;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private final SparkMax intakeMotor = new SparkMax(IntakeConstants.intakeMotorPort, MotorType.kBrushless);
-  
+  private final SparkMax intakeMotor =
+      new SparkMax(IntakeConstants.intakeMotorPort, MotorType.kBrushless);
+
   public IntakeSubsystem() {
     setMotorIdleMode();
   }
-
-  //Method to set motors to brake mode
+  // Method to set motors to brake mode
   public void setMotorIdleMode() {
     SparkMaxConfig idleMode = new SparkMaxConfig();
     idleMode.idleMode(IdleMode.kBrake);
-
-
-    intakeMotor.configure(idleMode, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    intakeMotor.configure(
+        idleMode,
+        com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
   }
 
   public void setIntakeSpeed(double intakeSpeed) {
     intakeMotor.set(intakeSpeed);
   }
-
 
   @Override
   public void periodic() {
