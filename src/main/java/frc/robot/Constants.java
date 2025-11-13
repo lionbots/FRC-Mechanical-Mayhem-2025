@@ -14,6 +14,7 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
+    // Sets the ports the code should send electricity to for controlling the motors.
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 5;
   }

@@ -21,22 +21,25 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivebaseSubsystem driveBase = new DrivebaseSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  // Replace with CommandPS4Controller or CommandJoystick if needed. Creates an Xbox controller
+  // object.
   private final CommandXboxController driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands. Here it's telling
+   * the ArcadeDriveCommand to get the left Y and right X values of the controller to control speed
+   * and angle respectively.
+   */
   public RobotContainer() {
+    getAutonomousCommand().withTimeout(3);
     driveBase.setDefaultCommand(
         new ArcadeDriveCommand(
             driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
   }
 
-
-  // Sets up the autonomous mode movements for 3 seconds.
+  // Sets up the autonomous mode movements for 3 seconds. Specifically tells it to go forward.
   public Command getAutonomousCommand() {
-    // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
-    return new ParallelCommandGroup(
-        new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
+    return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3));
   }
 }
