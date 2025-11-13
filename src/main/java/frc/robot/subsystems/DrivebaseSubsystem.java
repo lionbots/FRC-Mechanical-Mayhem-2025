@@ -8,7 +8,6 @@ package frc.robot.subsystems;
 // objects.
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,7 +23,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
   // Sets up a differential drive.
   private final DifferentialDrive differentialDrive =
       new DifferentialDrive(leftfrontWheel, rightfrontWheel);
-      private final PIDController PID =
+  private final PIDController PID =
       new PIDController(
           DriveConstants.PIDConstants.kP,
           DriveConstants.PIDConstants.kI,
