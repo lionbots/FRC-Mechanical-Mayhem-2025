@@ -7,7 +7,11 @@ package frc.robot.subsystems;
 // Imports the libraries need for the code, including the DifferentialDrive and the SparkMax
 // objects.
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,6 +35,14 @@ public class DrivebaseSubsystem extends SubsystemBase {
   /** Creates a new DrivebaseSubsystem. */
   public DrivebaseSubsystem() {
     configurePID();
+    setMotorInverted();
+  }
+
+  // Sets the left wheel inverted using a config
+  public void setMotorInverted() {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.inverted(true);
+    leftfrontWheel.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   public void arcadeDrive(double speed, double angle) {
