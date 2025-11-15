@@ -11,7 +11,6 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -26,14 +25,8 @@ public class DrivebaseSubsystem extends SubsystemBase {
   // Sets up a differential drive.
   private final DifferentialDrive differentialDrive =
       new DifferentialDrive(leftfrontWheel, rightfrontWheel);
-  private final PIDController PID =
-      new PIDController(
-          DriveConstants.PIDConstants.kP,
-          DriveConstants.PIDConstants.kI,
-          DriveConstants.PIDConstants.kD);
   /** Creates a new DrivebaseSubsystem. */
   public DrivebaseSubsystem() {
-    configurePID();
     setMotorInverted();
   }
 
@@ -53,11 +46,6 @@ public class DrivebaseSubsystem extends SubsystemBase {
   public void setMotorSpeed(double leftSpeed, double rightSpeed) {
     rightfrontWheel.set(rightSpeed);
     leftfrontWheel.set(leftSpeed);
-  }
-
-  private void configurePID() {
-    PID.enableContinuousInput(-180, 180);
-    PID.setTolerance(DriveConstants.PIDConstants.tolerance);
   }
 
   /**

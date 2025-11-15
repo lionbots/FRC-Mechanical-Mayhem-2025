@@ -31,12 +31,5 @@ public final class Constants {
     // Constants for motor ports to clarify which one the RoboRio should send electricity too.
     public static final int leftfrontWheel = 7;
     public static final int rightfrontWheel = 2;
-
-    public static class PIDConstants {
-      public static final double kP = 0.05;
-      public static final double kI = 0.05;
-      public static final double kD = 0.05;
-      public static final double tolerance = 12;
-    }
   }
 }
