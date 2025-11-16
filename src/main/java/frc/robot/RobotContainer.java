@@ -40,5 +40,11 @@ public class RobotContainer {
     operatorController
         .leftTrigger(0.1)
         .whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
+    operatorController
+      .leftBumper()
+      .whileTrue((new IntakeCommand(intake,()->-1.0)));
+    operatorController
+      .rightBumper()
+      .whileTrue((new OuttakeCommand(outtake,()->-1.0)));
   }
 }
