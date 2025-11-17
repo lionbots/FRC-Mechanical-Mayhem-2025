@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.OuttakeCommand;
@@ -24,6 +26,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    getAutonomousCommand().withTimeout(3);
     configureBindings();
   }
 
@@ -31,5 +34,9 @@ public class RobotContainer {
     operatorController
         .rightTrigger(0.1)
         .whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
+  }
+
+  public Command getAutonomousCommand() {
+    return new ParallelCommandGroup(new OuttakeCommand(outtake, () -> 0.5));
   }
 }
