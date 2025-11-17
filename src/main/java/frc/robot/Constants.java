@@ -14,6 +14,22 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
+    // Sets the ports the code should send electricity to for controlling the motors.
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 5;
+  }
+
+  public static class IntakeConstants {
+    public static final int intakeMotorPort = 7;
+  }
+
+  public static class OuttakeConstants {
+    public static final int outtakeMotorPort = 7;
+  }
+
+  public static class DriveConstants {
+    // Constants for motor ports to clarify which one the RoboRio should send electricity too.
+    public static final int leftfrontWheel = 7;
+    public static final int rightfrontWheel = 2;
   }
 }
