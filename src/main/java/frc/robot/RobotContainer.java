@@ -40,6 +40,6 @@ public class RobotContainer {
 
   // Sets up the autonomous mode movements for 3 seconds. Specifically tells it to go forward.
   public Command getAutonomousCommand() {
-    return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3));
+    return new ParallelCommandGroup(new ArcadeDriveCommand(driveBase, () -> 0.0, () -> 3.0));
   }
 }
