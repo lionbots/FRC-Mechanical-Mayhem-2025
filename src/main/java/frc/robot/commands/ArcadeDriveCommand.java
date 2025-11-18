@@ -19,6 +19,7 @@ public class ArcadeDriveCommand extends Command {
   public ArcadeDriveCommand(
       DrivebaseSubsystem driveBase, Supplier<Double> angle, Supplier<Double> rightSpeed) {
     this.driveBase = driveBase;
+    // Sets the angle
     this.angle = angle;
     // Declared rightSpeed as leftSpeed is given by a negative value of rightSpeed.
     this.rightSpeed = rightSpeed;
@@ -31,7 +32,9 @@ public class ArcadeDriveCommand extends Command {
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Called every time the scheduler runs while the command is scheduled. When the
+  // ArcadeDriveCommand is run, this gets the speed and the angle from controller inputs defined in
+  // the method.
   @Override
   public void execute() {
     driveBase.arcadeDrive(rightSpeed.get(), angle.get());

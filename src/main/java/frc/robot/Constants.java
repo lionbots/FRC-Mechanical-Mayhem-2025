@@ -29,7 +29,7 @@ public final class Constants {
 
   public static class DriveConstants {
     // Constants for motor ports to clarify which one the RoboRio should send electricity too.
-    public static final int leftfrontWheel = 2;
-    public static final int rightfrontWheel = 10;
+    public static final int leftfrontWheel = 7;
+    public static final int rightfrontWheel = 2;
   }
 }

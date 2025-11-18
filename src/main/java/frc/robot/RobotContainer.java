@@ -40,6 +40,7 @@ public class RobotContainer {
         new ArcadeDriveCommand(
             driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
     configureBindings();
+    getAutonomousCommand().withTimeout(3);
   }
 
   private void configureBindings() {
@@ -49,12 +50,14 @@ public class RobotContainer {
     operatorController
         .leftTrigger(0.1)
         .whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
+    operatorController.leftBumper().whileTrue((new IntakeCommand(intake, () -> -0.7)));
+    operatorController.rightBumper().whileTrue((new OuttakeCommand(outtake, () -> 0.7)));
   }
 
   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
     // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
     return new ParallelCommandGroup(
-        new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3).withTimeout(3));
+        new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3));
   }
 }

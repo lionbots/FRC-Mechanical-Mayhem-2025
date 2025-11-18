@@ -19,12 +19,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     setMotorIdleMode();
   }
-
   // Method to set motors to brake mode
   public void setMotorIdleMode() {
     SparkMaxConfig idleMode = new SparkMaxConfig();
     idleMode.idleMode(IdleMode.kBrake);
-
     intakeMotor.configure(
         idleMode,
         com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters,
