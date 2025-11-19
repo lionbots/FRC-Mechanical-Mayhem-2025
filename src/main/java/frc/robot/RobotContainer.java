@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.OuttakeSubsystem;
 
 /**
@@ -19,9 +21,13 @@ import frc.robot.subsystems.OuttakeSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final IntakeSubsystem intake = new IntakeSubsystem();
   private final OuttakeSubsystem outtake = new OuttakeSubsystem();
 
   private final CommandXboxController operatorController =
+      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  private final CommandXboxController OperatorController =
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -34,6 +40,11 @@ public class RobotContainer {
     operatorController
         .rightTrigger(0.1)
         .whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
+    operatorController
+        .leftTrigger(0.1)
+        .whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
+    operatorController.leftBumper().whileTrue((new IntakeCommand(intake, () -> 0.7)));
+    operatorController.rightBumper().whileTrue((new OuttakeCommand(outtake, () -> -0.7)));
   }
 
   public Command getAutonomousCommand() {
