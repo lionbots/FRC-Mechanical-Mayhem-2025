@@ -34,6 +34,7 @@ public class OuttakeSubsystem extends SubsystemBase {
 
   public void setOuttakeSpeed(double outtakeSpeed) {
     outtakeMotor.set(outtakeSpeed);
+    System.out.println(outtakeSpeed);
   }
 
   @Override

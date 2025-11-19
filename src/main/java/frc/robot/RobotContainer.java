@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
@@ -47,11 +48,13 @@ public class RobotContainer {
     operatorController
         .rightTrigger(0.1)
         .whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
+    System.out.println("fer");
+    // operatorController.rightTrigger(0).whileTrue(Commands.run(() -> System.out.println("they dont pay me enough")));
     operatorController
         .leftTrigger(0.1)
         .whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
-    operatorController.leftBumper().whileTrue((new IntakeCommand(intake, () -> -0.7)));
-    operatorController.rightBumper().whileTrue((new OuttakeCommand(outtake, () -> 0.7)));
+    operatorController.leftBumper().whileTrue((new IntakeCommand(intake, () -> 0.7)));
+    operatorController.rightBumper().whileTrue((new OuttakeCommand(outtake, () -> -0.7)));
   }
 
   // Sets up the autonomous mode movements for 3 seconds.
