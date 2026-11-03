@@ -11,7 +11,11 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -25,9 +29,28 @@ public class DrivebaseSubsystem extends SubsystemBase {
   // Sets up a differential drive.
   private final DifferentialDrive differentialDrive =
       new DifferentialDrive(leftfrontWheel, rightfrontWheel);
+
+  // Physics simulation of the drivetrain. It is only used on a computer (in the simulator and in
+  // unit tests), never on the real robot. It works out where the robot would move based on the
+  // voltage we send to each side.
+  // TODO (students) step 1: Create the simulation using the constructor:
+  //   new DifferentialDrivetrainSim(motor, gearing, momentOfInertia, massKg, wheelRadiusMeters,
+  //       trackWidthMeters, null)
+  //   - motor: DCMotor.getNEO(...) describes NEO motors. Pass in how many motors drive each side.
+  //     (import edu.wpi.first.math.system.plant.DCMotor)
+  //   - Use the values from DriveConstants. Careful: the constructor wants the wheel RADIUS,
+  //     which is half the diameter.
+  //   - The final null means "no simulated sensor noise".
+  private final DifferentialDrivetrainSim driveSim = null;
+
+  // A field map that shows the simulated robot's position in the simulator window.
+  private final Field2d field = new Field2d();
+
   /** Creates a new DrivebaseSubsystem. */
   public DrivebaseSubsystem() {
     setMotorInverted();
+    // Sends the field map to the dashboard so it appears in the simulator window.
+    SmartDashboard.putData("Field", field);
   }
 
   // Sets the left wheel inverted using a config
@@ -56,6 +79,19 @@ public class DrivebaseSubsystem extends SubsystemBase {
     return rightfrontWheel.get();
   }
 
+  /**
+   * Returns where the simulated robot is on the field: its x and y position in meters, and the
+   * direction it is facing. The robot starts at x = 0, y = 0, facing 0 degrees. Driving forward
+   * makes x bigger, driving backward makes x smaller.
+   *
+   * @return the simulated robot's position.
+   */
+  public Pose2d getPose() {
+    // TODO (students) step 4: Return the simulation's position instead of this placeholder.
+    //   Hint: DifferentialDrivetrainSim has a getPose() method.
+    return new Pose2d();
+  }
+
   public void close() {
     differentialDrive.close();
     leftfrontWheel.close();
@@ -80,5 +116,28 @@ public class DrivebaseSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+
+    // Until step 1 is done there is no simulation yet, so there is nothing to update.
+    if (driveSim == null) {
+      return;
+    }
+
+    // TODO (students) step 2: Tell the simulation what voltage each side of the drivetrain gets.
+    //   - Motor output is a number from -1 to 1 (getLeftOutput() and getRightOutput()).
+    //   - Voltage = motor output * battery voltage. RobotController.getBatteryVoltage() gives the
+    //     battery voltage. (import edu.wpi.first.wpilibj.RobotController)
+    //   - Pass both voltages to driveSim.setInputs(leftVolts, rightVolts).
+    //   - Do NOT flip the sign of the left side here. The left motor is inverted inside the
+    //     SparkMax itself, so getLeftOutput() already means "positive = forward".
+
+    // TODO (students) step 3: Move the simulation forward by one robot loop (0.02 seconds).
+    //   Hint: driveSim.update(...)
+
+    // TODO (students) step 5: Show the robot on the field map in the simulator window.
+    //   Hint: field.setRobotPose(...) with the position from getPose().
+
+    // Note: the simulation does not model static friction (the extra push a real robot needs to
+    // start moving). It will show the robot moving even at very low power, so it cannot tell us
+    // whether a low output (like the ~8% autonomous power) is enough to move the real robot.
   }
 }

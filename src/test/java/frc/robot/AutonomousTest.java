@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj.simulation.SimHooks;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DrivebaseSubsystem;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -115,6 +117,46 @@ class AutonomousTest {
     // The autonomous command should have timed out and stopped the motors.
     assertEquals(0.0, drive.getLeftOutput(), EPSILON);
     assertEquals(0.0, drive.getRightOutput(), EPSILON);
+  }
+
+  // This test checks where the simulated robot ends up, not just what the motors are told to do.
+  // It needs the drivetrain simulation in DrivebaseSubsystem, so it is turned off for now.
+  // TODO (students): Finish steps 1 to 5 in DrivebaseSubsystem and fill in the robot measurements
+  //   in Constants.DriveConstants. Then remove the @Disabled line below and fill in the checks.
+  @Disabled("Enable once the drivetrain simulation in DrivebaseSubsystem is finished")
+  @Test
+  void autoMovesRobotBackwardStraightAndStops() {
+    CommandScheduler.getInstance().schedule(container.getAutonomousCommand());
+    DrivebaseSubsystem drive = container.getDriveBase();
+
+    // Let 2.9 seconds pass while autonomous is still driving, then record where the robot is.
+    runFor(2.9);
+    Pose2d whileDriving = drive.getPose();
+
+    // TODO (students) check 1: The robot should have moved backward, so its x position should be
+    //   less than 0. Hint: whileDriving.getX() and assertTrue(...).
+
+    // TODO (students) check 2: The robot should have driven straight, so it should not have moved
+    //   sideways or turned. Check that whileDriving.getY() is close to 0, and that
+    //   whileDriving.getRotation().getDegrees() is close to 0. Hint: assertEquals(expected,
+    //   actual, tolerance), with a tolerance like 0.01 (1 cm, or 0.01 degrees).
+
+    // Autonomous stops at 3 seconds, but a moving robot keeps rolling for a moment while it slows
+    // down. Wait until 4.5 seconds so it has time to come to a stop, then record its position
+    // twice, one second apart. (If check 3 fails with your robot's measurements, the robot may
+    // need longer to stop: try a bigger number here.)
+    runFor(1.6);
+    Pose2d afterStopping = drive.getPose();
+    runFor(1.0);
+    Pose2d oneSecondLater = drive.getPose();
+
+    // TODO (students) check 3: The robot should have stopped, so it should be in (almost) the same
+    //   place in afterStopping and oneSecondLater. Compare their x positions with a small
+    //   tolerance, such as 0.01 (1 cm).
+
+    // TODO (students) check 4 (optional): Once the measurements in DriveConstants match the real
+    //   robot, check how far it drove. Work out the expected distance, then compare it to
+    //   whileDriving.getX() with a sensible tolerance.
   }
 
   /**
