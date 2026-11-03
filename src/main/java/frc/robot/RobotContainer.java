@@ -5,8 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDriveCommand;
@@ -41,7 +39,6 @@ public class RobotContainer {
         new ArcadeDriveCommand(
             driveBase, () -> driverController.getLeftY(), () -> driverController.getRightX()));
     configureBindings();
-    getAutonomousCommand().withTimeout(3);
   }
 
   private void configureBindings() {
@@ -49,7 +46,8 @@ public class RobotContainer {
         .rightTrigger(0.1)
         .whileTrue(new OuttakeCommand(outtake, operatorController::getRightTriggerAxis));
     System.out.println("fer");
-    // operatorController.rightTrigger(0).whileTrue(Commands.run(() -> System.out.println("they dont pay me enough")));
+    // operatorController.rightTrigger(0).whileTrue(Commands.run(() -> System.out.println("they dont
+    // pay me enough")));
     operatorController
         .leftTrigger(0.1)
         .whileTrue((new IntakeCommand(intake, operatorController::getLeftTriggerAxis)));
@@ -60,7 +58,16 @@ public class RobotContainer {
   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
     // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
-    return new ParallelCommandGroup(
-        new ArcadeDriveCommand(driveBase, () -> -0.3, () -> -0.3));
+    return new ArcadeDriveCommand(driveBase, () -> 0.0, () -> -0.3).withTimeout(3);
+  }
+
+  public DrivebaseSubsystem getDriveBase() {
+    return driveBase;
+  }
+
+  public void close() {
+    driveBase.close();
+    intake.close();
+    outtake.close();
   }
 }

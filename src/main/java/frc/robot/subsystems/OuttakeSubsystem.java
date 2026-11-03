@@ -37,6 +37,10 @@ public class OuttakeSubsystem extends SubsystemBase {
     System.out.println(outtakeSpeed);
   }
 
+  public void close() {
+    outtakeMotor.close();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

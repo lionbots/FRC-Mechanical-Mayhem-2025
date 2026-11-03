@@ -48,6 +48,20 @@ public class DrivebaseSubsystem extends SubsystemBase {
     leftfrontWheel.set(leftSpeed);
   }
 
+  public double getLeftOutput() {
+    return leftfrontWheel.get();
+  }
+
+  public double getRightOutput() {
+    return rightfrontWheel.get();
+  }
+
+  public void close() {
+    differentialDrive.close();
+    leftfrontWheel.close();
+    rightfrontWheel.close();
+  }
+
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
