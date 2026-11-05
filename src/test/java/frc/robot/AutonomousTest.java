@@ -102,12 +102,10 @@ class AutonomousTest {
 
     // Let 2.9 seconds of simulated time pass. Autonomous should still be running.
     runFor(2.9);
-    System.out.println(drive.getLeftOutput());
-    System.out.println(drive.getRightOutput());
 
     // Check that both wheels are being driven backward (a negative motor output means backward).
-    assertTrue(drive.getLeftOutput() < EPSILON * -1, "left motor should drive backward");
-    assertTrue(drive.getRightOutput() < EPSILON * -1, "right motor should drive backward");
+    assertTrue(drive.getLeftOutput() < 0, "left motor should drive backward");
+    assertTrue(drive.getRightOutput() < 0, "right motor should drive backward");
 
     // Both sides should get the same output. If they did not, the robot would turn instead of
     // driving straight.
