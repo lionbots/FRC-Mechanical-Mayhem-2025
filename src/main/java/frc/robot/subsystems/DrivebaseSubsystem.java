@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -41,7 +42,8 @@ public class DrivebaseSubsystem extends SubsystemBase {
   //   - Use the values from DriveConstants. Careful: the constructor wants the wheel RADIUS,
   //     which is half the diameter.
   //   - The final null means "no simulated sensor noise".
-  private final DifferentialDrivetrainSim driveSim = null;
+  private final DifferentialDrivetrainSim driveSim; 
+  // new DifferentialDrivetrainSim(DCMotor.getNEO(1), gearing, momentOfInertia, massKg, wheelRadiusMeters);
 
   // A field map that shows the simulated robot's position in the simulator window.
   private final Field2d field = new Field2d();
@@ -63,7 +65,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
 
   public void arcadeDrive(double speed, double angle) {
     this.differentialDrive.arcadeDrive(speed, angle);
-  }
+  }null
 
   // Creates a method to easily set the motor speeds.
   public void setMotorSpeed(double leftSpeed, double rightSpeed) {
