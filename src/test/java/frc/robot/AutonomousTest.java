@@ -123,7 +123,6 @@ class AutonomousTest {
   // It needs the drivetrain simulation in DrivebaseSubsystem, so it is turned off for now.
   // TODO (students): Finish steps 1 to 5 in DrivebaseSubsystem and fill in the robot measurements
   //   in Constants.DriveConstants. Then remove the @Disabled line below and fill in the checks.
-  @Disabled("Enable once the drivetrain simulation in DrivebaseSubsystem is finished")
   @Test
   void autoMovesRobotBackwardStraightAndStops() {
     CommandScheduler.getInstance().schedule(container.getAutonomousCommand());
@@ -132,7 +131,7 @@ class AutonomousTest {
     // Let 2.9 seconds pass while autonomous is still driving, then record where the robot is.
     runFor(2.9);
     Pose2d whileDriving = drive.getPose();
-
+    // assertTrue(whileDriving.getX() < 0);
     // TODO (students) check 1: The robot should have moved backward, so its x position should be
     //   less than 0. Hint: whileDriving.getX() and assertTrue(...).
 
