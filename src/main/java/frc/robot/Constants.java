@@ -32,28 +32,29 @@ public final class Constants {
     public static final int rightfrontWheel = 2;
 
     // Measurements of the real robot, used by the drivetrain simulation in DrivebaseSubsystem.
-    // TODO (students): Measure or look up each value and replace the 0 placeholders.
     //   Use meters and kilograms. The simulation is only as accurate as these numbers.
 
     // How many motors drive each side of the robot (including any follower motors).
-    public static final int kMotorsPerSide = 0;
+    public static final int kMotorsPerSide = 1;
 
     // Gear ratio: how many times the motor spins for one spin of the wheel. For example, a
     // 10.71:1 gearbox is 10.71.
-    public static final double kGearRatio = 0.0;
+    public static final double kGearRatio = 5.0;
 
     // Diameter of one drive wheel, in meters. (1 inch = 0.0254 meters.)
-    public static final double kWheelDiameterMeters = 0.0;
+    public static final double kWheelDiameterMeters = 0.1016;
+
+    public static final double kWheelRadiusMeters = kWheelDiameterMeters / 2.0;
 
     // Distance between the middle of the left wheels and the middle of the right wheels, in
     // meters.
-    public static final double kTrackWidthMeters = 0.0;
+    public static final double kTrackWidthMeters = 0.578496;
 
     // Mass of the robot with battery and bumpers, in kilograms. (1 pound = 0.4536 kg.)
-    public static final double kRobotMassKg = 0.0;
+    public static final double kRobotMassKg = 25.0;
 
     // How hard the robot is to spin, in kg*m^2 (its "moment of inertia"). This is hard to
     // measure, so a rough estimate is fine. A typical FRC robot is somewhere around 3 to 8.
-    public static final double kMomentOfInertia = 0.0;
+    public static final double kMomentOfInertia = 4.0;
   }
 }

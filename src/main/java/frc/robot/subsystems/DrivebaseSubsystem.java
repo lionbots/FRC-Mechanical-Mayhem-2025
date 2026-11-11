@@ -33,15 +33,15 @@ public class DrivebaseSubsystem extends SubsystemBase {
   // Physics simulation of the drivetrain. It is only used on a computer (in the simulator and in
   // unit tests), never on the real robot. It works out where the robot would move based on the
   // voltage we send to each side.
-  // TODO (students) step 1: Create the simulation using the constructor:
-  //   new DifferentialDrivetrainSim(motor, gearing, momentOfInertia, massKg, wheelRadiusMeters,
-  //       trackWidthMeters, null)
-  //   - motor: DCMotor.getNEO(...) describes NEO motors. Pass in how many motors drive each side.
-  //     (import edu.wpi.first.math.system.plant.DCMotor)
-  //   - Use the values from DriveConstants. Careful: the constructor wants the wheel RADIUS,
-  //     which is half the diameter.
-  //   - The final null means "no simulated sensor noise".
-  private final DifferentialDrivetrainSim driveSim = null;
+  private final DifferentialDrivetrainSim driveSim = new DifferentialDrivetrainSim(
+      edu.wpi.first.math.system.plant.DCMotor.getNEO(2),
+      DriveConstants.kGearRatio,
+      DriveConstants.kMomentOfInertia,
+      DriveConstants.kRobotMassKg,
+      DriveConstants.kWheelRadiusMeters,
+      DriveConstants.kTrackWidthMeters,
+      null
+  );
 
   // A field map that shows the simulated robot's position in the simulator window.
   private final Field2d field = new Field2d();
@@ -129,9 +129,13 @@ public class DrivebaseSubsystem extends SubsystemBase {
     //   - Pass both voltages to driveSim.setInputs(leftVolts, rightVolts).
     //   - Do NOT flip the sign of the left side here. The left motor is inverted inside the
     //     SparkMax itself, so getLeftOutput() already means "positive = forward".
+    double leftVolts = getLeftOutput() * edu.wpi.first.wpilibj.RobotController.getBatteryVoltage();
+    double rightVolts = getRightOutput() * edu.wpi.first.wpilibj.RobotController.getBatteryVoltage();
+    driveSim.setInputs(leftVolts, rightVolts);
 
     // TODO (students) step 3: Move the simulation forward by one robot loop (0.02 seconds).
     //   Hint: driveSim.update(...)
+    driveSim.update(0.02);
 
     // TODO (students) step 5: Show the robot on the field map in the simulator window.
     //   Hint: field.setRobotPose(...) with the position from getPose().
