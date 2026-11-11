@@ -12,12 +12,14 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.RobotController;
 
 // Class to define the DrivebaseSubsystem, named after the Java file.
 public class DrivebaseSubsystem extends SubsystemBase {
@@ -41,7 +43,8 @@ public class DrivebaseSubsystem extends SubsystemBase {
   //   - Use the values from DriveConstants. Careful: the constructor wants the wheel RADIUS,
   //     which is half the diameter.
   //   - The final null means "no simulated sensor noise".
-  private final DifferentialDrivetrainSim driveSim = null;
+  private final DifferentialDrivetrainSim driveSim = 
+      new DifferentialDrivetrainSim(DCMotor.getNEO(1), 5, 4, 25, 0.0508, 0.5784596, null); // Mass and moment of inertia aren't really known
 
   // A field map that shows the simulated robot's position in the simulator window.
   private final Field2d field = new Field2d();
@@ -72,11 +75,11 @@ public class DrivebaseSubsystem extends SubsystemBase {
   }
 
   public double getLeftOutput() {
-    return leftfrontWheel.get();
+    return leftfrontWheel.get() * 100;
   }
 
   public double getRightOutput() {
-    return rightfrontWheel.get();
+    return rightfrontWheel.get() * 100;
   }
 
   /**
@@ -89,7 +92,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
   public Pose2d getPose() {
     // TODO (students) step 4: Return the simulation's position instead of this placeholder.
     //   Hint: DifferentialDrivetrainSim has a getPose() method.
-    return new Pose2d();
+    return driveSim.getPose();
   }
 
   public void close() {
@@ -130,11 +133,17 @@ public class DrivebaseSubsystem extends SubsystemBase {
     //   - Do NOT flip the sign of the left side here. The left motor is inverted inside the
     //     SparkMax itself, so getLeftOutput() already means "positive = forward".
 
+    driveSim.setInputs(getLeftOutput() * RobotController.getBatteryVoltage(), getRightOutput() * RobotController.getBatteryVoltage());
+
     // TODO (students) step 3: Move the simulation forward by one robot loop (0.02 seconds).
     //   Hint: driveSim.update(...)
 
+    driveSim.update(0.02);
+
     // TODO (students) step 5: Show the robot on the field map in the simulator window.
     //   Hint: field.setRobotPose(...) with the position from getPose().
+
+    field.setRobotPose(getPose());
 
     // Note: the simulation does not model static friction (the extra push a real robot needs to
     // start moving). It will show the robot moving even at very low power, so it cannot tell us

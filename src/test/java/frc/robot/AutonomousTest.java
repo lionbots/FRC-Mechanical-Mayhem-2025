@@ -103,9 +103,11 @@ class AutonomousTest {
     // Let 2.9 seconds of simulated time pass. Autonomous should still be running.
     runFor(2.9);
 
+    System.out.println(drive.getLeftOutput());
+    System.out.println(drive.getRightOutput());
     // Check that both wheels are being driven backward (a negative motor output means backward).
-    assertTrue(drive.getLeftOutput() < 0, "left motor should drive backward");
-    assertTrue(drive.getRightOutput() < 0, "right motor should drive backward");
+    assertTrue(drive.getLeftOutput() < -1, "left motor should drive backward");
+    assertTrue(drive.getRightOutput() < -1, "right motor should drive backward");
 
     // Both sides should get the same output. If they did not, the robot would turn instead of
     // driving straight.
@@ -123,7 +125,7 @@ class AutonomousTest {
   // It needs the drivetrain simulation in DrivebaseSubsystem, so it is turned off for now.
   // TODO (students): Finish steps 1 to 5 in DrivebaseSubsystem and fill in the robot measurements
   //   in Constants.DriveConstants. Then remove the @Disabled line below and fill in the checks.
-  @Disabled("Enable once the drivetrain simulation in DrivebaseSubsystem is finished")
+  // @Disabled("Enable once the drivetrain simulation in DrivebaseSubsystem is finished")
   @Test
   void autoMovesRobotBackwardStraightAndStops() {
     CommandScheduler.getInstance().schedule(container.getAutonomousCommand());
@@ -135,11 +137,16 @@ class AutonomousTest {
 
     // TODO (students) check 1: The robot should have moved backward, so its x position should be
     //   less than 0. Hint: whileDriving.getX() and assertTrue(...).
+    
+    assertTrue(whileDriving.getX() <= -EPSILON);
 
     // TODO (students) check 2: The robot should have driven straight, so it should not have moved
     //   sideways or turned. Check that whileDriving.getY() is close to 0, and that
     //   whileDriving.getRotation().getDegrees() is close to 0. Hint: assertEquals(expected,
     //   actual, tolerance), with a tolerance like 0.01 (1 cm, or 0.01 degrees).
+
+    assertEquals(0, whileDriving.getY(), 0.01);
+    assertEquals(0, whileDriving.getRotation().getDegrees(), 0.1);
 
     // Autonomous stops at 3 seconds, but a moving robot keeps rolling for a moment while it slows
     // down. Wait until 4.5 seconds so it has time to come to a stop, then record its position
@@ -154,9 +161,13 @@ class AutonomousTest {
     //   place in afterStopping and oneSecondLater. Compare their x positions with a small
     //   tolerance, such as 0.01 (1 cm).
 
+    assertEquals(afterStopping.getX(), oneSecondLater.getX(), 0.01);
+
     // TODO (students) check 4 (optional): Once the measurements in DriveConstants match the real
     //   robot, check how far it drove. Work out the expected distance, then compare it to
     //   whileDriving.getX() with a sensible tolerance.
+    assertEquals(afterStopping.getX(), -4.5, 1.6); 
+    // Since we don't know the speed very accurately (I'm guessing it's 1-2 meters per second) I set the tolerance very high.
   }
 
   /**
