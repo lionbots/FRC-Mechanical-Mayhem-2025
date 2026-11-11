@@ -58,7 +58,7 @@ public class RobotContainer {
   // Sets up the autonomous mode movements for 3 seconds.
   public Command getAutonomousCommand() {
     // TODO: Add basic algorithm to perform autonomous operation for the first 3 seconds.
-    return new ArcadeDriveCommand(driveBase, () -> 0.0, () -> -0.3).withTimeout(3);
+    return new ArcadeDriveCommand(driveBase, () -> 0.0, () -> -1.0).withTimeout(3);
   }
 
   public DrivebaseSubsystem getDriveBase() {
