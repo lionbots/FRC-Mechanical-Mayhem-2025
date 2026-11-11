@@ -123,7 +123,6 @@ class AutonomousTest {
   // It needs the drivetrain simulation in DrivebaseSubsystem, so it is turned off for now.
   // TODO (students): Finish steps 1 to 5 in DrivebaseSubsystem and fill in the robot measurements
   //   in Constants.DriveConstants. Then remove the @Disabled line below and fill in the checks.
-  @Disabled("Enable once the drivetrain simulation in DrivebaseSubsystem is finished")
   @Test
   void autoMovesRobotBackwardStraightAndStops() {
     CommandScheduler.getInstance().schedule(container.getAutonomousCommand());
@@ -133,13 +132,16 @@ class AutonomousTest {
     runFor(2.9);
     Pose2d whileDriving = drive.getPose();
 
+
     // TODO (students) check 1: The robot should have moved backward, so its x position should be
     //   less than 0. Hint: whileDriving.getX() and assertTrue(...).
-
+    assertTrue(whileDriving.getX() <= EPSILON);
     // TODO (students) check 2: The robot should have driven straight, so it should not have moved
     //   sideways or turned. Check that whileDriving.getY() is close to 0, and that
     //   whileDriving.getRotation().getDegrees() is close to 0. Hint: assertEquals(expected,
     //   actual, tolerance), with a tolerance like 0.01 (1 cm, or 0.01 degrees).
+    assertEquals(EPSILON, whileDriving.getY(), 0.01);
+    assertEquals(EPSILON, whileDriving.getRotation().getDegrees(),0.01);
 
     // Autonomous stops at 3 seconds, but a moving robot keeps rolling for a moment while it slows
     // down. Wait until 4.5 seconds so it has time to come to a stop, then record its position
@@ -153,6 +155,8 @@ class AutonomousTest {
     // TODO (students) check 3: The robot should have stopped, so it should be in (almost) the same
     //   place in afterStopping and oneSecondLater. Compare their x positions with a small
     //   tolerance, such as 0.01 (1 cm).
+    assertEquals(afterStopping.getY(), oneSecondLater.getY(), 0.01);
+    assertEquals(afterStopping.getX(), oneSecondLater.getX(), 0.01);
 
     // TODO (students) check 4 (optional): Once the measurements in DriveConstants match the real
     //   robot, check how far it drove. Work out the expected distance, then compare it to
